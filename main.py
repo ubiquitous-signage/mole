@@ -3,7 +3,7 @@ import sys
 import requests
 import json
 import time
-
+from datetime import datetime
 import data
 
 
@@ -46,7 +46,7 @@ def getState(roomName):
 
     humid = -1000.0 if req.json()["value"] == "null" else float(req.json()["value"])
 
-    print(roomName, ":", light, temp, humid)
+    # print(roomName, ":", light, temp, humid)
     print(json.dumps({"name": roomName, "light": light, "temperature": temp, "humidity": humid}))
     return {"name": roomName, "light": light, "temperature": temp, "humidity": humid}
 
@@ -95,7 +95,7 @@ def getToken():
     req = requests.post(data.api_end + "auth/token", data=json.dumps(body),
                         headers=header, auth=(data.email, data.password))
 
-    print(req.text)
+    # print(req.text)
     if req.status_code == 200:
         token = req.json()["token"]
         return (False, token)
@@ -107,11 +107,11 @@ def loop():
     """メインループ"""
     while True:
         for roomName in data.roomIds.keys():
+            print(datetime.now().strftime("\n%Y/%m/%d %H:%M:%S"))
             try: 
                 run(roomName)
             except:
                 print("ERROR: ", sys.exc_info()[0])
-            print('---------------------------------------------')
             # 30秒ごとに情報を更新　迷惑にならない時間感覚を考える必要あり
             time.sleep(5)
 
