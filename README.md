@@ -9,6 +9,6 @@ python main.py
 ```
 ### (Optional) enable exit notification to Slack
 ```
-export SLACK_INCOMING_WEBHOOK_URL="webhook url"
+export MOLE_SLACK_HOOK="webhook url"
 python main.py --slack
 ```

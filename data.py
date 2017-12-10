@@ -44,7 +44,7 @@ email  = os.environ["DUCRB_API_USERNAME"]
 password = os.environ["DUCRB_API_PASSWORD"]
 
 if ("--slack" in sys.argv):
-    slack = os.environ["SLACK_INCOMING_WEBHOOK_URL"]
+    slack = os.environ["MOLE_SLACK_HOOK"]
     @atexit.register
     def notifyExit():
         requests.post(slack, json.dumps({"username": "ubiquitous-signage/mole", "icon_emoji": ":sleuth_or_spy:", "text": "mole exited!"}))
